@@ -1,0 +1,30 @@
+# 커피 관련 클래스 만들기
+class CoffeeMaker:
+    """Models the machine that makes the coffee"""
+    def __init__(self):
+        self.resources = {
+            "water": 300,
+            "milk": 200,
+            "coffee": 100,
+        }
+    # 남은 재료량 계산 함수
+    def report(self):
+        """Prints a report of all resources."""
+        print(f"Water: {self.resources['water']}ml")
+        print(f"Milk: {self.resources['milk']}ml")
+        print(f"Coffee: {self.resources['coffee']}g")
+    # 재료량으로 주문 가능여부 함수
+    def is_resource_sufficient(self, drink):
+        """Returns True when order can be made, False if ingredients are insufficient."""
+        can_make = True
+        for item in drink.ingredients:
+            if drink.ingredients[item] > self.resources[item]:
+                print(f"Sorry there is not enough {item}.")
+                can_make = False
+        return can_make
+    # 주문 가능하면 커피 재료 제거하는 함수
+    def make_coffee(self, order):
+        """Deducts the required ingredients from the resources."""
+        for item in order.ingredients:
+            self.resources[item] -= order.ingredients[item]
+        print(f"Here is your {order.name} ☕️. Enjoy!")
